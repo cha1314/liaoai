@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>心动交友匹配屋💓</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:"圆体","可爱卡通体",sans-serif;}
+        body{
+            background: linear-gradient(135deg,#fff0f8,#ffe6f2,#fce4f0);
+            min-height:100vh;
+            padding:20px 15px;
+        }
+        .box{
+            background:#ffffffdd;
+            border-radius:30px;
+            padding:25px 20px;
+            box-shadow:0 8px 20px #ffd6e0;
+            border:2px solid #ffd9e8;
+        }
+        h2{
+            text-align:center;
+            color:#ff79a8;
+            font-size:22px;
+            margin-bottom:20px;
+            letter-spacing:2px;
+        }
+        .tip{
+            text-align:center;
+            color:#ff96b7;
+            font-size:14px;
+            margin-bottom:18px;
+        }
+        .item{margin-bottom:16px;}
+        label{
+            display:block;
+            color:#ff6b9d;
+            font-size:15px;
+            margin-bottom:6px;
+        }
+        input,select{
+            width:100%;
+            height:45px;
+            border-radius:25px;
+            border:2px solid #ffcce0;
+            background:#fff5fa;
+            padding:0 18px;
+            font-size:15px;
+            color:#d8578a;
+            outline:none;
+        }
+        input:focus,select:focus{border-color:#ff87b2;}
+        .btn{
+            width:100%;
+            height:50px;
+            border-radius:30px;
+            border:none;
+            background:linear-gradient(90deg,#ff87b2,#ff70a6);
+            color:#fff;
+            font-size:17px;
+            font-weight:bold;
+            margin-top:10px;
+            box-shadow:0 5px 12px #ffc2d5;
+        }
+        .btn2{background:linear-gradient(90deg,#a496ff,#8b7aff);}
+        .btn3{background:linear-gradient(90deg,#76d19c,#58c986);}
+        .btn4{background:linear-gradient(90deg,#ff9a9a,#ff7a7a);}
+        .btn:active{transform:scale(0.97);}
+        .res{
+            margin-top:20px;
+            padding:18px;
+            border-radius:25px;
+            background:#fff0f7;
+            border:2px dashed #ffb8d0;
+            color:#c84c7a;
+            line-height:1.7;
+            white-space:pre-wrap;
+        }
+        .quiz-box{
+            margin:25px 0;
+            padding:20px;
+            border-radius:28px;
+            background:#ffeef5;
+            border:2px solid #ffc8dd;
+        }
+        .quiz-title{
+            text-align:center;
+            font-size:18px;
+            color:#ff6392;
+            margin-bottom:15px;
+        }
+        .ques{
+            background:#fff8fb;
+            border-radius:20px;
+            padding:15px;
+            margin-bottom:12px;
+        }
+        .ques p{
+            color:#d1507b;
+            margin-bottom:10px;
+        }
+        .radio-item{
+            margin:6px 0;
+            color:#e06890;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>💖心动交友匹配屋💖</h2>
+        <p class="tip">全网云端同步，所有人数据互通✨</p>
+
+        <div class="item">
+            <label>填写昵称</label>
+            <input type="text" id="name" placeholder="输入你的昵称">
+        </div>
+        <div class="item">
+            <label>选择性别</label>
+            <select id="gender">
+                <option value="">请选择性别</option>
+                <option value="女">女生</option>
+                <option value="男">男生</option>
+            </select>
+        </div>
+        <div class="item">
+            <label>填写年龄</label>
+            <input type="number" id="age" placeholder="输入你的年龄">
+        </div>
+        <div class="item">
+            <label>心仪交往取向</label>
+            <select id="loveType">
+                <option value="">选择交往取向</option>
+                <option value="异">偏向异性</option>
+                <option value="同">偏向同性</option>
+                <option value="双">皆可相处</option>
+            </select>
+        </div>
+
+        <div class="quiz-box">
+            <div class="quiz-title">💌性格爱好小问答💌</div>
+            <div class="ques">
+                <p>1. 闲暇日常更喜欢？</p>
+                <div class="radio-item"><input type="radio" name="q1" value="居家休闲">居家休闲</div>
+                <div class="radio-item"><input type="radio" name="q1" value="外出游玩">外出游玩</div>
+                <div class="radio-item"><input type="radio" name="q1" value="运动健身">运动健身</div>
+            </div>
+            <div class="ques">
+                <p>2. 自身性格属于？</p>
+                <div class="radio-item"><input type="radio" name="q2" value="外向开朗">外向开朗</div>
+                <div class="radio-item"><input type="radio" name="q2" value="慢热内敛">慢热内敛</div>
+                <div class="radio-item"><input type="radio" name="q2" value="佛系随和">佛系随和</div>
+            </div>
+            <div class="ques">
+                <p>3. 平时作息状态？</p>
+                <div class="radio-item"><input type="radio" name="q3" value="作息规律">作息规律</div>
+                <div class="radio-item"><input type="radio" name="q3" value="偶尔熬夜">偶尔熬夜</div>
+                <div class="radio-item"><input type="radio" name="q3" value="习惯晚睡">习惯晚睡</div>
+            </div>
+            <div class="ques">
+                <p>4. 饮食口味偏好？</p>
+                <div class="radio-item"><input type="radio" name="q4" value="清淡口味">清淡口味</div>
+                <div class="radio-item"><input type="radio" name="q4" value="重辣口味">重辣口味</div>
+                <div class="radio-item"><input type="radio" name="q4" value="偏爱甜食">偏爱甜食</div>
+            </div>
+            <div class="ques">
+                <p>5. 喜欢的相处模式？</p>
+                <div class="radio-item"><input type="radio" name="q5" value="亲密相伴">亲密相伴</div>
+                <div class="radio-item"><input type="radio" name="q5" value="适度陪伴">适度陪伴</div>
+                <div class="radio-item"><input type="radio" name="q5" value="自由相处">自由相处</div>
+            </div>
+            <div class="ques">
+                <p>6. 交友相处心态？</p>
+                <div class="radio-item"><input type="radio" name="q6" value="真诚认真">真诚认真</div>
+                <div class="radio-item"><input type="radio" name="q6" value="顺其自然">顺其自然</div>
+                <div class="radio-item"><input type="radio" name="q6" value="慢慢了解">慢慢了解</div>
+            </div>
+        </div>
+
+        <button class="btn" onclick="addUser()">✨加入匹配名单</button>
+        <button class="btn btn2" onclick="matchLove()">💓一键智能配对</button>
+        <button class="btn btn3" onclick="showAllData()">📋查看全部人员数据</button>
+        <button class="btn btn4" onclick="clearAllData()">🗑️清空云端数据</button>
+
+        <div class="res" id="result">匹配结果/人员数据将在此展示🌸</div>
+    </div>
+
+<script>
+// 免费云端共享数据库（所有人共用）
+const API_URL = "https://jsonblob.com/api/jsonBlob/1362456789123456789";
+
+// 获取云端所有数据
+async function getCloudData(){
+    let res = await axios.get(API_URL);
+    return res.data || [];
+}
+// 保存数据到云端
+async function saveCloudData(list){
+    await axios.put(API_URL,list);
+}
+
+function getAnswer(name){
+    let radios = document.getElementsByName(name);
+    for(let r of radios) if(r.checked) return r.value;
+    return "";
+}
+
+async function addUser(){
+    let name = document.getElementById('name').value.trim();
+    let gender = document.getElementById('gender').value;
+    let age = Number(document.getElementById('age').value);
+    let loveType = document.getElementById('loveType').value;
+    let a1=getAnswer("q1"),a2=getAnswer("q2"),a3=getAnswer("q3");
+    let a4=getAnswer("q4"),a5=getAnswer("q5"),a6=getAnswer("q6");
+    if(!name||!gender||!age||!loveType){alert('请填写完整基础信息');return;}
+    if(!a1||!a2||!a3||!a4||!a5||!a6){alert('请完成全部答题');return;}
+
+    let user={nickname:name,sex:gender,age:age,orient:loveType,answer:[a1,a2,a3,a4,a5,a6]};
+    let list = await getCloudData();
+    list.push(user);
+    await saveCloudData(list);
+    alert(`${name}已成功录入云端，所有人可见！`);
+
+    document.getElementById('name').value='';document.getElementById('age').value='';
+    document.getElementById('gender').selectedIndex=0;document.getElementById('loveType').selectedIndex=0;
+    document.querySelectorAll('input[type=radio]').forEach(e=>e.checked=false);
+}
+
+function getSimilarity(a,b){
+    let same=0;
+    for(let i=0;i<6;i++) if(a[i]===b[i]) same++;
+    return {sameNum:same,matchRate:Math.round(same/6*100)};
+}
+
+async function matchLove(){
+    let userList = await getCloudData();
+    if(userList.length<2){document.getElementById('result').innerText='人数不足，邀请好友一起参与吧';return;}
+    let res="🌸智能匹配结果（匹配概率越高越合拍）🌸\n\n";
+    let arr=[];
+    for(let i=0;i<userList.length;i++){
+        for(let j=i+1;j<userList.length;j++){
+            let u1=userList[i],u2=userList[j];
+            let ad1=u1.age>=18,ad2=u2.age>=18;
+            if(ad1!==ad2)continue;
+            let ok=false;
+            if(u1.orient=="异"&&u2.orient=="异"&&u1.sex!=u2.sex)ok=true;
+            if(u1.orient=="同"&&u2.orient=="同"&&u1.sex==u2.sex)ok=true;
+            if(u1.orient=="双"||u2.orient=="双")ok=true;
+            if(ok)arr.push({u1:u1.nickname,u2:u2.nickname,...getSimilarity(u1.answer,u2.answer)});
+        }
+    }
+    arr.sort((x,y)=>y.matchRate-x.matchRate);
+    if(arr.length==0)res+="暂时没有符合条件的匹配对象";
+    else arr.forEach(v=>res+=`${v.u1} ↔ ${v.u2}\n相符${v.sameNum}题 | 匹配概率：${v.matchRate}%\n——————————\n`);
+    document.getElementById('result').innerText=res;
+}
+
+async function showAllData(){
+    let userList = await getCloudData();
+    if(userList.length==0){document.getElementById('result').innerText="暂无任何人录入信息";return;}
+    let str="📋云端共享全部人员\n\n";
+    userList.forEach((v,i)=>str+=`第${i+1}位：\n昵称：${v.nickname}\n性别：${v.sex}\n年龄：${v.age}\n取向：${v.orient}\n答题：${v.answer.join(" / ")}\n——————————\n`);
+    document.getElementById('result').innerText=str;
+}
+async function clearAllData(){
+    if(confirm("确定清空云端所有人数据？")){
+        await saveCloudData([]);
+        document.getElementById('result').innerText="已清空云端所有数据";
+    }
+}
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>心动交友匹配屋💓</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:"圆体","可爱卡通体",sans-serif;}
+        body{
+            background: linear-gradient(135deg,#fff0f8,#ffe6f2,#fce4f0);
+            min-height:100vh;
+            padding:20px 15px;
+        }
+        .box{
+            background:#ffffffdd;
+            border-radius:30px;
+            padding:25px 20px;
+            box-shadow:0 8px 20px #ffd6e0;
+            border:2px solid #ffd9e8;
+        }
+        h2{
+            text-align:center;
+            color:#ff79a8;
+            font-size:22px;
+            margin-bottom:20px;
+            letter-spacing:2px;
+        }
+        .tip{
+            text-align:center;
+            color:#ff96b7;
+            font-size:14px;
+            margin-bottom:18px;
+        }
+        .item{margin-bottom:16px;}
+        label{
+            display:block;
+            color:#ff6b9d;
+            font-size:15px;
+            margin-bottom:6px;
+        }
+        input,select{
+            width:100%;
+            height:45px;
+            border-radius:25px;
+            border:2px solid #ffcce0;
+            background:#fff5fa;
+            padding:0 18px;
+            font-size:15px;
+            color:#d8578a;
+            outline:none;
+        }
+        input:focus,select:focus{border-color:#ff87b2;}
+        .btn{
+            width:100%;
+            height:50px;
+            border-radius:30px;
+            border:none;
+            background:linear-gradient(90deg,#ff87b2,#ff70a6);
+            color:#fff;
+            font-size:17px;
+            font-weight:bold;
+            margin-top:10px;
+            box-shadow:0 5px 12px #ffc2d5;
+        }
+        .btn2{background:linear-gradient(90deg,#a496ff,#8b7aff);}
+        .btn3{background:linear-gradient(90deg,#76d19c,#58c986);}
+        .btn4{background:linear-gradient(90deg,#ff9a9a,#ff7a7a);}
+        .btn:active{transform:scale(0.97);}
+        .res{
+            margin-top:20px;
+            padding:18px;
+            border-radius:25px;
+            background:#fff0f7;
+            border:2px dashed #ffb8d0;
+            color:#c84c7a;
+            line-height:1.7;
+            white-space:pre-wrap;
+        }
+        .quiz-box{
+            margin:25px 0;
+            padding:20px;
+            border-radius:28px;
+            background:#ffeef5;
+            border:2px solid #ffc8dd;
+        }
+        .quiz-title{
+            text-align:center;
+            font-size:18px;
+            color:#ff6392;
+            margin-bottom:15px;
+        }
+        .ques{
+            background:#fff8fb;
+            border-radius:20px;
+            padding:15px;
+            margin-bottom:12px;
+        }
+        .ques p{
+            color:#d1507b;
+            margin-bottom:10px;
+        }
+        .radio-item{
+            margin:6px 0;
+            color:#e06890;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>💖心动交友匹配屋💖</h2>
+        <p class="tip">全网云端同步，所有人数据互通✨</p>
+
+        <div class="item">
+            <label>填写昵称</label>
+            <input type="text" id="name" placeholder="输入你的昵称">
+        </div>
+        <div class="item">
+            <label>选择性别</label>
+            <select id="gender">
+                <option value="">请选择性别</option>
+                <option value="女">女生</option>
+                <option value="男">男生</option>
+            </select>
+        </div>
+        <div class="item">
+            <label>填写年龄</label>
+            <input type="number" id="age" placeholder="输入你的年龄">
+        </div>
+        <div class="item">
+            <label>心仪交往取向</label>
+            <select id="loveType">
+                <option value="">选择交往取向</option>
+                <option value="异">偏向异性</option>
+                <option value="同">偏向同性</option>
+                <option value="双">皆可相处</option>
+            </select>
+        </div>
+
+        <div class="quiz-box">
+            <div class="quiz-title">💌性格爱好小问答💌</div>
+            <div class="ques">
+                <p>1. 闲暇日常更喜欢？</p>
+                <div class="radio-item"><input type="radio" name="q1" value="居家休闲">居家休闲</div>
+                <div class="radio-item"><input type="radio" name="q1" value="外出游玩">外出游玩</div>
+                <div class="radio-item"><input type="radio" name="q1" value="运动健身">运动健身</div>
+            </div>
+            <div class="ques">
+                <p>2. 自身性格属于？</p>
+                <div class="radio-item"><input type="radio" name="q2" value="外向开朗">外向开朗</div>
+                <div class="radio-item"><input type="radio" name="q2" value="慢热内敛">慢热内敛</div>
+                <div class="radio-item"><input type="radio" name="q2" value="佛系随和">佛系随和</div>
+            </div>
+            <div class="ques">
+                <p>3. 平时作息状态？</p>
+                <div class="radio-item"><input type="radio" name="q3" value="作息规律">作息规律</div>
+                <div class="radio-item"><input type="radio" name="q3" value="偶尔熬夜">偶尔熬夜</div>
+                <div class="radio-item"><input type="radio" name="q3" value="习惯晚睡">习惯晚睡</div>
+            </div>
+            <div class="ques">
+                <p>4. 饮食口味偏好？</p>
+                <div class="radio-item"><input type="radio" name="q4" value="清淡口味">清淡口味</div>
+                <div class="radio-item"><input type="radio" name="q4" value="重辣口味">重辣口味</div>
+                <div class="radio-item"><input type="radio" name="q4" value="偏爱甜食">偏爱甜食</div>
+            </div>
+            <div class="ques">
+                <p>5. 喜欢的相处模式？</p>
+                <div class="radio-item"><input type="radio" name="q5" value="亲密相伴">亲密相伴</div>
+                <div class="radio-item"><input type="radio" name="q5" value="适度陪伴">适度陪伴</div>
+                <div class="radio-item"><input type="radio" name="q5" value="自由相处">自由相处</div>
+            </div>
+            <div class="ques">
+                <p>6. 交友相处心态？</p>
+                <div class="radio-item"><input type="radio" name="q6" value="真诚认真">真诚认真</div>
+                <div class="radio-item"><input type="radio" name="q6" value="顺其自然">顺其自然</div>
+                <div class="radio-item"><input type="radio" name="q6" value="慢慢了解">慢慢了解</div>
+            </div>
+        </div>
+
+        <button class="btn" onclick="addUser()">✨加入匹配名单</button>
+        <button class="btn btn2" onclick="matchLove()">💓一键智能配对</button>
+        <button class="btn btn3" onclick="showAllData()">📋查看全部人员数据</button>
+        <button class="btn btn4" onclick="clearAllData()">🗑️清空云端数据</button>
+
+        <div class="res" id="result">匹配结果/人员数据将在此展示🌸</div>
+    </div>
+
+<script>
+// 免费云端共享数据库（所有人共用）
+const API_URL = "https://jsonblob.com/api/jsonBlob/1362456789123456789";
+
+// 获取云端所有数据
+async function getCloudData(){
+    let res = await axios.get(API_URL);
+    return res.data || [];
+}
+// 保存数据到云端
+async function saveCloudData(list){
+    await axios.put(API_URL,list);
+}
+
+function getAnswer(name){
+    let radios = document.getElementsByName(name);
+    for(let r of radios) if(r.checked) return r.value;
+    return "";
+}
+
+async function addUser(){
+    let name = document.getElementById('name').value.trim();
+    let gender = document.getElementById('gender').value;
+    let age = Number(document.getElementById('age').value);
+    let loveType = document.getElementById('loveType').value;
+    let a1=getAnswer("q1"),a2=getAnswer("q2"),a3=getAnswer("q3");
+    let a4=getAnswer("q4"),a5=getAnswer("q5"),a6=getAnswer("q6");
+    if(!name||!gender||!age||!loveType){alert('请填写完整基础信息');return;}
+    if(!a1||!a2||!a3||!a4||!a5||!a6){alert('请完成全部答题');return;}
+
+    let user={nickname:name,sex:gender,age:age,orient:loveType,answer:[a1,a2,a3,a4,a5,a6]};
+    let list = await getCloudData();
+    list.push(user);
+    await saveCloudData(list);
+    alert(`${name}已成功录入云端，所有人可见！`);
+
+    document.getElementById('name').value='';document.getElementById('age').value='';
+    document.getElementById('gender').selectedIndex=0;document.getElementById('loveType').selectedIndex=0;
+    document.querySelectorAll('input[type=radio]').forEach(e=>e.checked=false);
+}
+
+function getSimilarity(a,b){
+    let same=0;
+    for(let i=0;i<6;i++) if(a[i]===b[i]) same++;
+    return {sameNum:same,matchRate:Math.round(same/6*100)};
+}
+
+async function matchLove(){
+    let userList = await getCloudData();
+    if(userList.length<2){document.getElementById('result').innerText='人数不足，邀请好友一起参与吧';return;}
+    let res="🌸智能匹配结果（匹配概率越高越合拍）🌸\n\n";
+    let arr=[];
+    for(let i=0;i<userList.length;i++){
+        for(let j=i+1;j<userList.length;j++){
+            let u1=userList[i],u2=userList[j];
+            let ad1=u1.age>=18,ad2=u2.age>=18;
+            if(ad1!==ad2)continue;
+            let ok=false;
+            if(u1.orient=="异"&&u2.orient=="异"&&u1.sex!=u2.sex)ok=true;
+            if(u1.orient=="同"&&u2.orient=="同"&&u1.sex==u2.sex)ok=true;
+            if(u1.orient=="双"||u2.orient=="双")ok=true;
+            if(ok)arr.push({u1:u1.nickname,u2:u2.nickname,...getSimilarity(u1.answer,u2.answer)});
+        }
+    }
+    arr.sort((x,y)=>y.matchRate-x.matchRate);
+    if(arr.length==0)res+="暂时没有符合条件的匹配对象";
+    else arr.forEach(v=>res+=`${v.u1} ↔ ${v.u2}\n相符${v.sameNum}题 | 匹配概率：${v.matchRate}%\n——————————\n`);
+    document.getElementById('result').innerText=res;
+}
+
+async function showAllData(){
+    let userList = await getCloudData();
+    if(userList.length==0){document.getElementById('result').innerText="暂无任何人录入信息";return;}
+    let str="📋云端共享全部人员\n\n";
+    userList.forEach((v,i)=>str+=`第${i+1}位：\n昵称：${v.nickname}\n性别：${v.sex}\n年龄：${v.age}\n取向：${v.orient}\n答题：${v.answer.join(" / ")}\n——————————\n`);
+    document.getElementById('result').innerText=str;
+}
+async function clearAllData(){
+    if(confirm("确定清空云端所有人数据？")){
+        await saveCloudData([]);
+        document.getElementById('result').innerText="已清空云端所有数据";
+    }
+}
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>心动交友匹配屋💓</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:"圆体","可爱卡通体",sans-serif;}
+        body{
+            background: linear-gradient(135deg,#fff0f8,#ffe6f2,#fce4f0);
+            min-height:100vh;
+            padding:20px 15px;
+        }
+        .box{
+            background:#ffffffdd;
+            border-radius:30px;
+            padding:25px 20px;
+            box-shadow:0 8px 20px #ffd6e0;
+            border:2px solid #ffd9e8;
+        }
+        h2{
+            text-align:center;
+            color:#ff79a8;
+            font-size:22px;
+            margin-bottom:20px;
+            letter-spacing:2px;
+        }
+        .tip{
+            text-align:center;
+            color:#ff96b7;
+            font-size:14px;
+            margin-bottom:18px;
+        }
+        .item{margin-bottom:16px;}
+        label{
+            display:block;
+            color:#ff6b9d;
+            font-size:15px;
+            margin-bottom:6px;
+        }
+        input,select{
+            width:100%;
+            height:45px;
+            border-radius:25px;
+            border:2px solid #ffcce0;
+            background:#fff5fa;
+            padding:0 18px;
+            font-size:15px;
+            color:#d8578a;
+            outline:none;
+        }
+        input:focus,select:focus{border-color:#ff87b2;}
+        .btn{
+            width:100%;
+            height:50px;
+            border-radius:30px;
+            border:none;
+            background:linear-gradient(90deg,#ff87b2,#ff70a6);
+            color:#fff;
+            font-size:17px;
+            font-weight:bold;
+            margin-top:10px;
+            box-shadow:0 5px 12px #ffc2d5;
+        }
+        .btn2{background:linear-gradient(90deg,#a496ff,#8b7aff);}
+        .btn3{background:linear-gradient(90deg,#76d19c,#58c986);}
+        .btn4{background:linear-gradient(90deg,#ff9a9a,#ff7a7a);}
+        .btn:active{transform:scale(0.97);}
+        .res{
+            margin-top:20px;
+            padding:18px;
+            border-radius:25px;
+            background:#fff0f7;
+            border:2px dashed #ffb8d0;
+            color:#c84c7a;
+            line-height:1.7;
+            white-space:pre-wrap;
+        }
+        .quiz-box{
+            margin:25px 0;
+            padding:20px;
+            border-radius:28px;
+            background:#ffeef5;
+            border:2px solid #ffc8dd;
+        }
+        .quiz-title{
+            text-align:center;
+            font-size:18px;
+            color:#ff6392;
+            margin-bottom:15px;
+        }
+        .ques{
+            background:#fff8fb;
+            border-radius:20px;
+            padding:15px;
+            margin-bottom:12px;
+        }
+        .ques p{
+            color:#d1507b;
+            margin-bottom:10px;
+        }
+        .radio-item{
+            margin:6px 0;
+            color:#e06890;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>💖心动交友匹配屋💖</h2>
+        <p class="tip">全网云端同步，所有人数据互通✨</p>
+
+        <div class="item">
+            <label>填写昵称</label>
+            <input type="text" id="name" placeholder="输入你的昵称">
+        </div>
+        <div class="item">
+            <label>选择性别</label>
+            <select id="gender">
+                <option value="">请选择性别</option>
+                <option value="女">女生</option>
+                <option value="男">男生</option>
+            </select>
+        </div>
+        <div class="item">
+            <label>填写年龄</label>
+            <input type="number" id="age" placeholder="输入你的年龄">
+        </div>
+        <div class="item">
+            <label>心仪交往取向</label>
+            <select id="loveType">
+                <option value="">选择交往取向</option>
+                <option value="异">偏向异性</option>
+                <option value="同">偏向同性</option>
+                <option value="双">皆可相处</option>
+            </select>
+        </div>
+
+        <div class="quiz-box">
+            <div class="quiz-title">💌性格爱好小问答💌</div>
+            <div class="ques">
+                <p>1. 闲暇日常更喜欢？</p>
+                <div class="radio-item"><input type="radio" name="q1" value="居家休闲">居家休闲</div>
+                <div class="radio-item"><input type="radio" name="q1" value="外出游玩">外出游玩</div>
+                <div class="radio-item"><input type="radio" name="q1" value="运动健身">运动健身</div>
+            </div>
+            <div class="ques">
+                <p>2. 自身性格属于？</p>
+                <div class="radio-item"><input type="radio" name="q2" value="外向开朗">外向开朗</div>
+                <div class="radio-item"><input type="radio" name="q2" value="慢热内敛">慢热内敛</div>
+                <div class="radio-item"><input type="radio" name="q2" value="佛系随和">佛系随和</div>
+            </div>
+            <div class="ques">
+                <p>3. 平时作息状态？</p>
+                <div class="radio-item"><input type="radio" name="q3" value="作息规律">作息规律</div>
+                <div class="radio-item"><input type="radio" name="q3" value="偶尔熬夜">偶尔熬夜</div>
+                <div class="radio-item"><input type="radio" name="q3" value="习惯晚睡">习惯晚睡</div>
+            </div>
+            <div class="ques">
+                <p>4. 饮食口味偏好？</p>
+                <div class="radio-item"><input type="radio" name="q4" value="清淡口味">清淡口味</div>
+                <div class="radio-item"><input type="radio" name="q4" value="重辣口味">重辣口味</div>
+                <div class="radio-item"><input type="radio" name="q4" value="偏爱甜食">偏爱甜食</div>
+            </div>
+            <div class="ques">
+                <p>5. 喜欢的相处模式？</p>
+                <div class="radio-item"><input type="radio" name="q5" value="亲密相伴">亲密相伴</div>
+                <div class="radio-item"><input type="radio" name="q5" value="适度陪伴">适度陪伴</div>
+                <div class="radio-item"><input type="radio" name="q5" value="自由相处">自由相处</div>
+            </div>
+            <div class="ques">
+                <p>6. 交友相处心态？</p>
+                <div class="radio-item"><input type="radio" name="q6" value="真诚认真">真诚认真</div>
+                <div class="radio-item"><input type="radio" name="q6" value="顺其自然">顺其自然</div>
+                <div class="radio-item"><input type="radio" name="q6" value="慢慢了解">慢慢了解</div>
+            </div>
+        </div>
+
+        <button class="btn" onclick="addUser()">✨加入匹配名单</button>
+        <button class="btn btn2" onclick="matchLove()">💓一键智能配对</button>
+        <button class="btn btn3" onclick="showAllData()">📋查看全部人员数据</button>
+        <button class="btn btn4" onclick="clearAllData()">🗑️清空云端数据</button>
+
+        <div class="res" id="result">匹配结果/人员数据将在此展示🌸</div>
+    </div>
+
+<script>
+// 免费云端共享数据库（所有人共用）
+const API_URL = "https://jsonblob.com/api/jsonBlob/1362456789123456789";
+
+// 获取云端所有数据
+async function getCloudData(){
+    let res = await axios.get(API_URL);
+    return res.data || [];
+}
+// 保存数据到云端
+async function saveCloudData(list){
+    await axios.put(API_URL,list);
+}
+
+function getAnswer(name){
+    let radios = document.getElementsByName(name);
+    for(let r of radios) if(r.checked) return r.value;
+    return "";
+}
+
+async function addUser(){
+    let name = document.getElementById('name').value.trim();
+    let gender = document.getElementById('gender').value;
+    let age = Number(document.getElementById('age').value);
+    let loveType = document.getElementById('loveType').value;
+    let a1=getAnswer("q1"),a2=getAnswer("q2"),a3=getAnswer("q3");
+    let a4=getAnswer("q4"),a5=getAnswer("q5"),a6=getAnswer("q6");
+    if(!name||!gender||!age||!loveType){alert('请填写完整基础信息');return;}
+    if(!a1||!a2||!a3||!a4||!a5||!a6){alert('请完成全部答题');return;}
+
+    let user={nickname:name,sex:gender,age:age,orient:loveType,answer:[a1,a2,a3,a4,a5,a6]};
+    let list = await getCloudData();
+    list.push(user);
+    await saveCloudData(list);
+    alert(`${name}已成功录入云端，所有人可见！`);
+
+    document.getElementById('name').value='';document.getElementById('age').value='';
+    document.getElementById('gender').selectedIndex=0;document.getElementById('loveType').selectedIndex=0;
+    document.querySelectorAll('input[type=radio]').forEach(e=>e.checked=false);
+}
+
+function getSimilarity(a,b){
+    let same=0;
+    for(let i=0;i<6;i++) if(a[i]===b[i]) same++;
+    return {sameNum:same,matchRate:Math.round(same/6*100)};
+}
+
+async function matchLove(){
+    let userList = await getCloudData();
+    if(userList.length<2){document.getElementById('result').innerText='人数不足，邀请好友一起参与吧';return;}
+    let res="🌸智能匹配结果（匹配概率越高越合拍）🌸\n\n";
+    let arr=[];
+    for(let i=0;i<userList.length;i++){
+        for(let j=i+1;j<userList.length;j++){
+            let u1=userList[i],u2=userList[j];
+            let ad1=u1.age>=18,ad2=u2.age>=18;
+            if(ad1!==ad2)continue;
+            let ok=false;
+            if(u1.orient=="异"&&u2.orient=="异"&&u1.sex!=u2.sex)ok=true;
+            if(u1.orient=="同"&&u2.orient=="同"&&u1.sex==u2.sex)ok=true;
+            if(u1.orient=="双"||u2.orient=="双")ok=true;
+            if(ok)arr.push({u1:u1.nickname,u2:u2.nickname,...getSimilarity(u1.answer,u2.answer)});
+        }
+    }
+    arr.sort((x,y)=>y.matchRate-x.matchRate);
+    if(arr.length==0)res+="暂时没有符合条件的匹配对象";
+    else arr.forEach(v=>res+=`${v.u1} ↔ ${v.u2}\n相符${v.sameNum}题 | 匹配概率：${v.matchRate}%\n——————————\n`);
+    document.getElementById('result').innerText=res;
+}
+
+async function showAllData(){
+    let userList = await getCloudData();
+    if(userList.length==0){document.getElementById('result').innerText="暂无任何人录入信息";return;}
+    let str="📋云端共享全部人员\n\n";
+    userList.forEach((v,i)=>str+=`第${i+1}位：\n昵称：${v.nickname}\n性别：${v.sex}\n年龄：${v.age}\n取向：${v.orient}\n答题：${v.answer.join(" / ")}\n——————————\n`);
+    document.getElementById('result').innerText=str;
+}
+async function clearAllData(){
+    if(confirm("确定清空云端所有人数据？")){
+        await saveCloudData([]);
+        document.getElementById('result').innerText="已清空云端所有数据";
+    }
+}
+</script>
+</body>
+</html>
