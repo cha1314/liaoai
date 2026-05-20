@@ -1,171 +1,150 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>心动交友匹配屋</title>
-<style>
-  body{background:#fff0f8;padding:20px;font-family:Arial;}
-  .box{max-width:400px;margin:0 auto;background:white;padding:20px;border-radius:20px;}
-  input,select,button{width:100%;margin:8px 0;padding:12px;border-radius:10px;border:1px solid #ffcce0;}
-  button{background:#ff79a8;color:white;font-weight:bold;border:none;}
-  .res{margin-top:20px;padding:15px;background:#ffeef5;border-radius:10px;white-space:pre-wrap;}
-  .quiz{margin:10px 0;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>心动交友匹配屋</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{background:#fff0f8;padding:15px;font-family:微软雅黑;}
+        .wrap{max-width:550px;margin:0 auto;background:#fff;border-radius:25px;padding:20px;}
+        h2{text-align:center;color:#ff79a8;margin-bottom:15px;}
+        .item{margin:12px 0;}
+        label{display:block;color:#ff6b9d;margin-bottom:5px;}
+        input,select{width:100%;padding:12px;border-radius:20px;border:1px solid #ffcce0;}
+        .box{background:#ffeef5;border-radius:20px;padding:15px;margin:15px 0;}
+        .p-item{margin:8px 0;}
+        button{width:100%;padding:14px;border:none;border-radius:25px;color:#fff;font-weight:bold;margin:8px 0;cursor:pointer;}
+        .btn1{background:#ff79a8;}
+        .btn2{background:#9b8cff;}
+        .btn3{background:#68d391;}
+        .btn4{background:#ff7777;}
+        .show-box{margin-top:15px;padding:15px;background:#fff0f7;border-radius:20px;white-space:pre-wrap;min-height:100px;}
+    </style>
 </head>
 <body>
-<div class="box">
-  <h2>💖心动交友匹配屋</h2>
+<div class="wrap">
+    <h2>💖心动交友匹配屋</h2>
 
-  <input id="name" placeholder="昵称">
-  <select id="gender">
-    <option value="">性别</option>
-    <option>男</option>
-    <option>女</option>
-  </select>
-  <input id="age" placeholder="年龄" type="number">
-  <select id="loveType">
-    <option value="">交往取向</option>
-    <option>异</option>
-    <option>同</option>
-    <option>双</option>
-  </select>
+    <div class="item">
+        <label>昵称</label>
+        <input id="nic" placeholder="输入昵称">
+    </div>
+    <div class="item">
+        <label>性别</label>
+        <select id="sex">
+            <option value="">请选择</option>
+            <option>男</option>
+            <option>女</option>
+        </select>
+    </div>
+    <div class="item">
+        <label>年龄</label>
+        <input id="age" type="number" placeholder="输入年龄">
+    </div>
+    <div class="item">
+        <label>交往取向</label>
+        <select id="love">
+            <option value="">请选择</option>
+            <option>偏向异性</option>
+            <option>偏向同性</option>
+            <option>皆可相处</option>
+        </select>
+    </div>
 
-  <div class="quiz">
-    <p>1.闲暇日常更喜欢？</p>
-    <label><input type="radio" name="q1" value="居家休闲">居家休闲</label>
-    <label><input type="radio" name="q1" value="外出游玩">外出游玩</label>
-    <label><input type="radio" name="q1" value="运动健身">运动健身</label>
-  </div>
-  <div class="quiz">
-    <p>2.自身性格属于？</p>
-    <label><input type="radio" name="q2" value="外向开朗">外向开朗</label>
-    <label><input type="radio" name="q2" value="慢热内敛">慢热内敛</label>
-    <label><input type="radio" name="q2" value="佛系随和">佛系随和</label>
-  </div>
-  <div class="quiz">
-    <p>3.平时作息状态？</p>
-    <label><input type="radio" name="q3" value="作息规律">作息规律</label>
-    <label><input type="radio" name="q3" value="偶尔熬夜">偶尔熬夜</label>
-    <label><input type="radio" name="q3" value="习惯晚睡">习惯晚睡</label>
-  </div>
-  <div class="quiz">
-    <p>4.饮食口味偏好？</p>
-    <label><input type="radio" name="q4" value="清淡口味">清淡口味</label>
-    <label><input type="radio" name="q4" value="重辣口味">重辣口味</label>
-    <label><input type="radio" name="q4" value="偏爱甜食">偏爱甜食</label>
-  </div>
-  <div class="quiz">
-    <p>5.喜欢的相处模式？</p>
-    <label><input type="radio" name="q5" value="亲密相伴">亲密相伴</label>
-    <label><input type="radio" name="q5" value="适度陪伴">适度陪伴</label>
-    <label><input type="radio" name="q5" value="自由相处">自由相处</label>
-  </div>
-  <div class="quiz">
-    <p>6.交友相处心态？</p>
-    <label><input type="radio" name="q6" value="真诚认真">真诚认真</label>
-    <label><input type="radio" name="q6" value="顺其自然">顺其自然</label>
-    <label><input type="radio" name="q6" value="慢慢了解">慢慢了解</label>
-  </div>
+    <div class="box">
+        <p>1.闲暇喜欢？</p>
+        <div class="p-item"><input type="radio" name="a1" value="宅家">宅家 <input type="radio" name="a1" value="出门">出门 <input type="radio" name="a1" value="运动">运动</div>
+        <p>2.性格？</p>
+        <div class="p-item"><input type="radio" name="a2" value="外向">外向 <input type="radio" name="a2" value="内向">内向 <input type="radio" name="a2" value="随和">随和</div>
+        <p>3.作息？</p>
+        <div class="p-item"><input type="radio" name="a3" value="规律">规律 <input type="radio" name="a3" value="熬夜">偶尔熬夜 <input type="radio" name="a3" value="常熬">经常熬夜</div>
+        <p>4.口味？</p>
+        <div class="p-item"><input type="radio" name="a4" value="清淡">清淡 <input type="radio" name="a4" value="重口">重口味 <input type="radio" name="a4" value="甜食">爱吃甜食</div>
+        <p>5.相处模式？</p>
+        <div class="p-item"><input type="radio" name="a5" value="亲密">亲密黏人 <input type="radio" name="a5" value="适中">适中距离 <input type="radio" name="a5" value="自由">自由独处</div>
+        <p>6.交友心态？</p>
+        <div class="p-item"><input type="radio" name="a6" value="认真">认真走心 <input type="radio" name="a6" value="随缘">随缘相处 <input type="radio" name="a6" value="慢热">慢慢了解</div>
+    </div>
 
-  <button onclick="add()">加入匹配名单</button>
-  <button onclick="match()">一键智能配对</button>
-  <button onclick="show()">查看全部数据</button>
-  <button onclick="clear()">清空数据</button>
+    <button class="btn1" onclick="addInfo()">加入名单</button>
+    <button class="btn2" onclick="matchInfo()">一键匹配</button>
+    <button class="btn3" onclick="lookAll()">查看所有人</button>
+    <button class="btn4" onclick="clearData()">清空数据</button>
 
-  <div class="res" id="result"></div>
+    <div class="show-box" id="showText">结果展示区</div>
 </div>
 
 <script>
-// 纯本地运行，不联网！按钮100%能点！带6道题+精准匹配！
-let list = JSON.parse(localStorage.getItem('loveList') || '[]');
+// 改用【本地存储+共享代码】，不用 JSONBlob（避免权限问题）
+let show = document.getElementById("showText");
+const STORAGE_KEY = "loveMatchList";
 
-function getAns(name) {
-  let list = document.getElementsByName(name);
-  for (let r of list) if (r.checked) return r.value;
-  return '';
+// 获取单选答案
+function getVal(name){
+    let r = document.getElementsByName(name);
+    for(let i of r)if(i.checked)return i.value;
+    return "";
 }
 
-function add() {
-  let name = document.getElementById('name').value;
-  let gender = document.getElementById('gender').value;
-  let age = document.getElementById('age').value;
-  let loveType = document.getElementById('loveType').value;
+// 提交录入（本地存储，一定能存上）
+function addInfo(){
+    let n = document.getElementById("nic").value.trim();
+    let s = document.getElementById("sex").value;
+    let a = document.getElementById("age").value;
+    let l = document.getElementById("love").value;
+    let q1=getVal("a1"),q2=getVal("a2"),q3=getVal("a3");
+    let q4=getVal("a4"),q5=getVal("a5"),q6=getVal("a6");
 
-  let a1 = getAns('q1');
-  let a2 = getAns('q2');
-  let a3 = getAns('q3');
-  let a4 = getAns('q4');
-  let a5 = getAns('q5');
-  let a6 = getAns('q6');
-
-  if (!name || !gender || !age || !loveType || !a1 || !a2 || !a3 || !a4 || !a5 || !a6) {
-    alert('请填完所有信息和题目！');
-    return;
-  }
-
-  list.push({
-    name, gender, age, loveType,
-    ans: [a1,a2,a3,a4,a5,a6]
-  });
-
-  localStorage.setItem('loveList', JSON.stringify(list));
-  alert('添加成功！');
-  
-  // 清空
-  document.getElementById('name').value = '';
-  document.getElementById('age').value = '';
-  document.getElementById('gender').selectedIndex = 0;
-  document.getElementById('loveType').selectedIndex = 0;
-  document.querySelectorAll('input[type=radio]').forEach(i => i.checked = false);
-}
-
-function show() {
-  if (list.length === 0) {
-    document.getElementById('result').innerText = '暂无数据';
-    return;
-  }
-  let s = '';
-  list.forEach((i, n) => {
-    s += `${n+1}. ${i.name} ${i.gender} ${i.age}岁 ${i.loveType}\n答案：${i.ans.join(' | ')}\n\n`;
-  });
-  document.getElementById('result').innerText = s;
-}
-
-function match() {
-  if (list.length < 2) {
-    document.getElementById('result').innerText = '至少需要2人才能匹配';
-    return;
-  }
-
-  let res = '🌸 匹配结果（答案相同越多越配）🌸\n\n';
-  let pairs = [];
-
-  for (let i=0; i<list.length; i++) {
-    for (let j=i+1; j<list.length; j++) {
-      let u1 = list[i];
-      let u2 = list[j];
-      let same = 0;
-      for (let t=0; t<6; t++) {
-        if (u1.ans[t] === u2.ans[t]) same++;
-      }
-      let rate = Math.round(same/6*100);
-      pairs.push({ u1, u2, same, rate });
+    if(!n||!s||!a||!l||!q1||!q2||!q3||!q4||!q5||!q6){
+        alert("全部信息和题目必须填完！");
+        return;
     }
-  }
 
-  pairs.sort((a,b) => b.rate - a.rate);
+    let user = {name:n,sex:s,age:a,love:l,ans:[q1,q2,q3,q4,q5,q6]};
+    let list = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    list.push(user);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
 
-  pairs.forEach((p, i) => {
-    res += `${i+1}. ${p.u1.name} ↔ ${p.u2.name}\n相同${p.same}题 | 匹配率${p.rate}%\n\n`;
-  });
-
-  document.getElementById('result').innerText = res;
+    alert("提交成功！（已存入本地）");
+    // 清空表单
+    document.getElementById("nic").value="";
+    document.getElementById("age").value="";
+    document.getElementById("sex").selectedIndex=0;
+    document.getElementById("love").selectedIndex=0;
+    document.querySelectorAll("input[type=radio]").forEach(x=>x.checked=false);
 }
-function clear() {
-    if (confirm('确定清空所有数据？')) {
-        list = [];
-        localStorage.setItem('loveList', JSON.stringify(list));
-        document.getElementById('result').innerText = '已清空';
-    }
-}
+
+// 匹配
+function matchInfo(){
+    let list = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    if(list.length<2){show.innerText="人数不够，邀请好友填写";return;}
+    let str="🌸匹配结果🌸\n";
+    for(let i=0;i<list.length;i++){
+        for(let j=i+1;j<list.length;j++){
+            let same=0;
+            for(let k=0;k<6;k++){
+  if(list[i].ans[k]==list[j].ans[k])same++;
+             }
+             let rate = Math.round(same/6*100);
+             str += `\n${list[i].name} & ${list[j].name}\n契合度：${rate}%\n`;
+         }
+     }
+     show.innerText=str;
+ }
+ // 查看全部
+ function lookAll(){
+     let list = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+     if(list.length===0){show.innerText="暂无任何人填写信息";return;}
+     let str="📝全部交友名单\n\n";
+     list.forEach((item,idx)=>{
+         str+=`${idx+1}.昵称：${item.name}\n性别：${item.sex} 年龄：${item.age}\n取向：${item.love}\n喜好：${item.ans.join(" / ")}\n————————\n`
+     })
+     show.innerText=str;
+ }
+ // 清空数据   
+ function clearData(){
+     if(!confirm("确定清空所有人数据？不可恢复！"))return;
+     localStorage.removeItem(STORAGE_KEY);
+     show.innerText="已清空全部数据";
+ }
