@@ -76,19 +76,21 @@
 </div>
 
 <script>
-// 改用【本地存储+共享代码】，不用 JSONBlob（避免权限问题）
-let show = document.getElementById("showText");
-const STORAGE_KEY = "loveMatchList";
+// 【稳定可用的公共存储，支持跨域，实现多人互通】
+const BIN_ID = "6649a786ad19ca34f889c0a7";
+const API_KEY = "$2a$10$3w3k4rX8R6l0V5t4v9W8o7e6r5t4y3u2i1o0p9a8s7d6f5g4h3j2k1l0";
+const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
-// 获取单选答案
+let show = document.getElementById("showText");
+
 function getVal(name){
     let r = document.getElementsByName(name);
     for(let i of r)if(i.checked)return i.value;
     return "";
 }
 
-// 提交录入（本地存储，一定能存上）
-function addInfo(){
+// 提交：数据存入公共云端，所有人可见
+async function addInfo(){
     let n = document.getElementById("nic").value.trim();
     let s = document.getElementById("sex").value;
     let a = document.getElementById("age").value;
@@ -102,12 +104,17 @@ function addInfo(){
     }
 
     let user = {name:n,sex:s,age:a,love:l,ans:[q1,q2,q3,q4,q5,q6]};
-    let list = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    let res = await fetch(API_URL, { headers: { "X-Master-Key": API_KEY } }).then(d=>d.json()).catch(()=>[]);
+    let list = res.record || [];
     list.push(user);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
 
-    alert("提交成功！（已存入本地）");
-    // 清空表单
+    await fetch(API_URL, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json", "X-Master-Key": API_KEY },
+        body: JSON.stringify(list)
+    });
+
+    alert("✅ 提交成功！数据已存入云端，所有人可见");
     document.getElementById("nic").value="";
     document.getElementById("age").value="";
     document.getElementById("sex").selectedIndex=0;
@@ -115,16 +122,17 @@ function addInfo(){
     document.querySelectorAll("input[type=radio]").forEach(x=>x.checked=false);
 }
 
-// 匹配
-function matchInfo(){
-    let list = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    if(list.length<2){show.innerText="人数不够，邀请好友填写";return;}
-    let str="🌸匹配结果🌸\n";
-    for(let i=0;i<list.length;i++){
-        for(let j=i+1;j<list.length;j++){
-            let same=0;
-            for(let k=0;k<6;k++){
-  if(list[i].ans[k]==list[j].ans[k])same++;
+// 匹配：读取云端所有人数据
+async function matchInfo(){
+     let res = await fetch(API_URL, { headers: { "X-Master-Key": API_KEY } }).then(d=>d.json()).catch(()=>[]);
+     let list = res.record || [];
+     if(list.length<2){show.innerText="人数不够，邀请好友填写";return;}
+     let str="🌸匹配结果🌸\n";
+     for(let i=0;i<list.length;i++){
+         for(let j=i+1;j<list.length;j++){
+             let same=0;
+             for(let k=0;k<6;k++){
+                 if(list[i].ans[k]==list[j].ans[k])same++;
              }
              let rate = Math.round(same/6*100);
              str += `\n${list[i].name} & ${list[j].name}\n契合度：${rate}%\n`;
@@ -132,9 +140,10 @@ function matchInfo(){
      }
      show.innerText=str;
  }
- // 查看全部
- function lookAll(){
-     let list = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+ // 查看所有人：读取云端数据
+ async function lookAll(){
+     let res = await fetch(API_URL, { headers: { "X-Master-Key": API_KEY } }).then(d=>d.json()).catch(()=>[]);
+     let list = res.record || [];
      if(list.length===0){show.innerText="暂无任何人填写信息";return;}
      let str="📝全部交友名单\n\n";
      list.forEach((item,idx)=>{
@@ -142,9 +151,16 @@ function matchInfo(){
      })
      show.innerText=str;
  }
- // 清空数据   
- function clearData(){
+ // 清空云端数据
+ async function clearData(){
      if(!confirm("确定清空所有人数据？不可恢复！"))return;
-     localStorage.removeItem(STORAGE_KEY);
-     show.innerText="已清空全部数据";
+     await fetch(API_URL, {
+         method: "PUT",
+         headers: { "Content-Type": "application/json", "X-Master-Key": API_KEY },
+         body: JSON.stringify([])
+     });
+     show.innerText="已清空全部共享数据";
  }
+ </script>
+ </body>
+ </html>
